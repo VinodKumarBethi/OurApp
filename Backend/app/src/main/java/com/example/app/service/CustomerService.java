@@ -174,6 +174,19 @@ public class CustomerService implements CustomerServiceInterface {
         } else {
             throw new RuntimeException("Either id or username must be provided");
         }
+        String[] Mandatory_Cust_Feilds = { updateCustomer.getName(), updateCustomer.getGender(),
+                updateCustomer.getPassword(), updateCustomer.getEmail(), updateCustomer.getProfile_img(),
+                updateCustomer.getMobile(), updateCustomer.getAge() };
+        int count = 0;
+        for (String feild : Mandatory_Cust_Feilds) {
+
+            if (isNullOrEmpty(feild)) {
+                count++;
+            }
+        }
+        if (count < 1) {
+            throw new RuntimeException("Atleast one value (other than Id or Username) to be provided for update");
+        }
 
         if (updateCustomer.getName() != null) {
             existingCustomer.setName(updateCustomer.getName());
@@ -197,17 +210,17 @@ public class CustomerService implements CustomerServiceInterface {
             existingCustomer.setPassword(updateCustomer.getPassword());
         }
 
-        if ((updateCustomer.getName() == null || updateCustomer.getName().trim().isEmpty()) &&
-                (updateCustomer.getEmail() == null || updateCustomer.getEmail().trim().isEmpty()) &&
-                (updateCustomer.getMobile() == null || updateCustomer.getMobile().trim().isEmpty()) &&
-                (updateCustomer.getAge() == null || updateCustomer.getAge().trim().isEmpty()) &&
-                (updateCustomer.getGender() == null || updateCustomer.getGender().trim().isEmpty()) &&
-                (updateCustomer.getProfile_img() == null || updateCustomer.getProfile_img().trim().isEmpty()) &&
-                (updateCustomer.getPassword() == null || updateCustomer.getPassword().trim().isEmpty())
+        // if ((updateCustomer.getName() == null || updateCustomer.getName().trim().isEmpty()) &&
+        //         (updateCustomer.getEmail() == null || updateCustomer.getEmail().trim().isEmpty()) &&
+        //         (updateCustomer.getMobile() == null || updateCustomer.getMobile().trim().isEmpty()) &&
+        //         (updateCustomer.getAge() == null || updateCustomer.getAge().trim().isEmpty()) &&
+        //         (updateCustomer.getGender() == null || updateCustomer.getGender().trim().isEmpty()) &&
+        //         (updateCustomer.getProfile_img() == null || updateCustomer.getProfile_img().trim().isEmpty()) &&
+        //         (updateCustomer.getPassword() == null || updateCustomer.getPassword().trim().isEmpty())
 
-        ) {
-            throw new RuntimeException("Atleast one value (other than Id or Username) to be provided for update");
-        }
+        // ) {
+        //     throw new RuntimeException("Atleast one value (other than Id or Username) to be provided for update");
+        // }
 
         // return createCustomer(existingCustomer);
         Customer cust = customerRepository.save(existingCustomer);
