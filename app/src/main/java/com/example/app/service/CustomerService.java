@@ -55,7 +55,7 @@ public class CustomerService implements CustomerServiceInterface {
                 throw new NullPointerException("name, gender, username, password cannot be null");
             }
         }
-        String Id = UUID.randomUUID().toString();
+        String Id = "CUS_" + UUID.randomUUID().toString();
         c.setId(Id);
         Customer cust = customerRepository.save(c);
         if (cust.getId() != null) {
@@ -184,7 +184,7 @@ public class CustomerService implements CustomerServiceInterface {
                 count++;
             }
         }
-        if (count < 1) {
+        if (count == 0 ) {
             throw new RuntimeException("Atleast one value (other than Id or Username) to be provided for update");
         }
 

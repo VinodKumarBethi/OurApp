@@ -2,6 +2,7 @@ package com.example.app.customerController;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.app.dto.CustomerDTO;
 import com.example.app.model.Customer;
 import com.example.app.service.CustomerService;
 
@@ -26,20 +27,23 @@ public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private CustomerDTO customerDTO;
 
     @GetMapping("/getAllCustomers")
-    public List<Customer> getAllCustomers() {
-        return customerService.getAllCustomers();
+    public List<CustomerDTO> getAllCustomers() {
+        return customerService.getAllCustomers().stream().map(m -> customerDTO.customerToCustomerDTO(m)).toList();
     }
 
     @GetMapping("/getAllCustomersByGender/{gender}")
-    public List<Customer> getAllCustomersByGender(@PathVariable String gender) {
-        return customerService.getAllCustomersByGender(gender);
+    public List<CustomerDTO> getAllCustomersByGender(@PathVariable String gender) {
+        return customerService.getAllCustomersByGender(gender).stream().map(m -> customerDTO.customerToCustomerDTO(m))
+                .toList();
     }
 
     @GetMapping("/login/{username}/{password}")
-    public Customer login(@PathVariable String username, @PathVariable String password) {
-        return customerService.getCustomersByUserameAndPassword(username, password);
+    public CustomerDTO login(@PathVariable String username, @PathVariable String password) {
+        return customerDTO.customerToCustomerDTO(customerService.getCustomersByUserameAndPassword(username, password));
     }
 
     @PostMapping("/Signup")
@@ -59,13 +63,13 @@ public class CustomerController {
     }
 
     @GetMapping("/getCustomerById/{id}")
-    public Customer getCustomerById(@PathVariable String id) {
-        return customerService.getCustomerById(id);
+    public CustomerDTO getCustomerById(@PathVariable String id) {
+        return customerDTO.customerToCustomerDTO(customerService.getCustomerById(id));
     }
 
     @GetMapping("/getCustomerByUsername/{username}")
-    public Customer getCustomerByUsername(@PathVariable String username) {
-        return customerService.getCustomerByUsername(username);
+    public CustomerDTO getCustomerByUsername(@PathVariable String username) {
+        return customerDTO.customerToCustomerDTO(customerService.getCustomerByUsername(username));
     }
 
     @GetMapping("/updateCustomerPassword/{username}/{newpassword}")
