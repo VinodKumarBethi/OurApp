@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,8 +34,8 @@ public class CustomerController {
     private CustomerDTO customerDTO;
 
     @GetMapping("/getAllCustomers")
-    public List<CustomerDTO> getAllCustomers() {
-        return customerService.getAllCustomers().stream().map(m -> customerDTO.customerToCustomerDTO(m)).toList();
+    public ResponseEntity<List<CustomerDTO>> getAllCustomers() {
+        return ResponseEntity.ok( customerService.getAllCustomers().stream().map(m -> customerDTO.customerToCustomerDTO(m)).toList());
     }
 
     @GetMapping("/getAllCustomersByGender/{gender}")
@@ -65,8 +66,8 @@ public class CustomerController {
     }
 
     @GetMapping("/getCustomerById/{id}")
-    public CustomerDTO getCustomerById(@PathVariable String id) {
-        return customerDTO.customerToCustomerDTO(customerService.getCustomerById(id));
+    public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable String id) {
+        return ResponseEntity.ok(customerDTO.customerToCustomerDTO(customerService.getCustomerById(id)));
     }
 
     @GetMapping("/getCustomerByUsername/{username}")
