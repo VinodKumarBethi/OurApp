@@ -111,36 +111,7 @@ public class CustomerService implements CustomerServiceInterface {
     // return createCustomer(customer);
 
     // }
-    // @Override
-    // public boolean updateCustomerEmail(String id, String newEmail) {
-    // // TODO Auto-generated method stub
-    // throw new UnsupportedOperationException("Unimplemented method
-    // 'updateCustomerEmail'");
-    // }
-    // @Override
-    // public boolean updateCustomerMobile(String id, String newMobile) {
-    // // TODO Auto-generated method stub
-    // throw new UnsupportedOperationException("Unimplemented method
-    // 'updateCustomerMobile'");
-    // }
-    // @Override
-    // public boolean updateCustomerAge(String id, String newAge) {
-    // // TODO Auto-generated method stub
-    // throw new UnsupportedOperationException("Unimplemented method
-    // 'updateCustomerAge'");
-    // }
-    // @Override
-    // public boolean updateCustomerGender(String id, String newGender) {
-    // // TODO Auto-generated method stub
-    // throw new UnsupportedOperationException("Unimplemented method
-    // 'updateCustomerGender'");
-    // }
-    // @Override
-    // public boolean updateCustomerProfileImg(String id, String newProfileImg) {
-    // // TODO Auto-generated method stub
-    // throw new UnsupportedOperationException("Unimplemented method
-    // 'updateCustomerProfileImg'");
-    // }
+    
     @Override
     public boolean updateCustomerPassword(String username, String newPassword) {
         Customer customer;
