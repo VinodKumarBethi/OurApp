@@ -9,7 +9,7 @@ import com.example.retailer.model.Services;
 
 
 
-@FeignClient(name="servicesClient",url="http://localhost:8282")
+@FeignClient(name="servicesClient",url="http://localhost:8282/retailerservices")
 public interface ServicesFeignClient {
 
     @GetMapping("/getServicesByRetId/{retId}")

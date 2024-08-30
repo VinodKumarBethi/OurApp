@@ -18,4 +18,6 @@ public interface RetailerRepo extends JpaRepository<Retailer,String> {
     public List<Retailer> getByRetailerLocationId(String locId);
     public List<Retailer> getByRetailerName(String retName);
     public Retailer getByRetailerUsername(String uname);
+    
+
 }
