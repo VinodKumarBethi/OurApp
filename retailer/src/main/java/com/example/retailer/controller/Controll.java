@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.retailer.dto.RetailerDto;
@@ -23,6 +24,7 @@ import com.example.retailer.service.RetailerService;
 
 
 @RestController
+@RequestMapping("/retailer")
 public class Controll {
 
     @Autowired
@@ -42,7 +44,7 @@ public class Controll {
         return ResponseEntity.ok(retailerService.getRetailerByID(id));
     }
 
-    @GetMapping("/retailersById/{locationId}")
+    @GetMapping("/retailersByLocId/{locationId}")
     public ResponseEntity<List<RetailerDto>> getAllRetailersbyLoc(@PathVariable String locationId){
         return ResponseEntity.ok(retailerService.getRetailersByLocation(locationId));
     }
