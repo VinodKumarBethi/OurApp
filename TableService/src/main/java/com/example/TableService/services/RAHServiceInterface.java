@@ -1,18 +1,20 @@
 package com.example.TableService.services;
 
-import com.example.TableService.model.Customer;
+import java.util.List;
+
 import com.example.TableService.model.TableRAH;
 
 public interface RAHServiceInterface {
 
-    public Customer  getRAHByCustomer(String custToken);
-    public TableRAH  getRAHByRetailer(String retToken);
-    public TableRAH createRAH(String CustToken,String retailerUserName);
-    public TableRAH acceptRAHByRetailer(String retToken);
-    public boolean withDrawRequest(String custToken);
-    public boolean makePayment(String custToken);
-    public String sendMsgByRetailer(String retToken,String CustUsername,String msg);
-    public String getMsgByCustomer(String custToken);
-    
+    public TableRAH  getRAHByCustomer(String custId);//customer should only able to make one request at a time otherwise need to ask wthdrawl of prev reqwst
+    public List<TableRAH>  getRAHQueueByRetailer(String retId);
+    public TableRAH createRAH(TableRAH rah);
+    public TableRAH updateApproveOrReject(String requestId,String retId,String status);//it updates the  status of the request with approved and serviceOngoing should be updated to pending.
+   
+    public List<TableRAH> getRequestByRetIdAndApprovalStatus();//approved list
+    public TableRAH updateOngoingStatus(String requestId);//it updates the  ongoingstatus of the request with ongoing
+    public String withdrawalRequest(String requestId);
+    public String setMessage(String requestId,String message);
+
 
 }
