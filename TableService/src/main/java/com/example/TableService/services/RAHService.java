@@ -1,5 +1,7 @@
 package com.example.TableService.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,54 +15,54 @@ public class RAHService implements RAHServiceInterface {
     @Autowired
     FeigncustomerClient feigncustomerClient;
 
-    @Override
-    public Customer getRAHByCustomer(String custToken) {
-        Customer  customer = feigncustomerClient.getCustomerById(custToken);
-
-        return customer;
-    }
+ 
 
     @Override
-    public TableRAH getRAHByRetailer(String retToken) {
+    public List<TableRAH> getRAHQueueByRetailer(String retId) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRAHByRetailer'");
-    }
-
-
-    @Override
-    public TableRAH acceptRAHByRetailer(String retToken) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'acceptRAHByRetailer'");
+        throw new UnsupportedOperationException("Unimplemented method 'getRAHQueueByRetailer'");
     }
 
     @Override
-    public boolean withDrawRequest(String custToken) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'withDrawRequest'");
-    }
-
-    @Override
-    public boolean makePayment(String custToken) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'makePayment'");
-    }
-
-    @Override
-    public TableRAH createRAH(String CustToken, String retailerUserName) {
+    public TableRAH createRAH(TableRAH rah) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createRAH'");
     }
 
     @Override
-    public String sendMsgByRetailer(String retToken, String CustUsername, String msg) {
+    public TableRAH updateApproveOrReject(String requestId, String retId, String status) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sendMsgByRetailer'");
+        throw new UnsupportedOperationException("Unimplemented method 'updateApproveOrReject'");
     }
 
     @Override
-    public String getMsgByCustomer(String custToken) {
+    public List<TableRAH> getRequestByRetIdAndApprovalStatus() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMsgByCustomer'");
+        throw new UnsupportedOperationException("Unimplemented method 'getRequestByRetIdAndApprovalStatus'");
+    }
+
+    @Override
+    public TableRAH updateOngoingStatus(String requestId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateOngoingStatus'");
+    }
+
+    @Override
+    public String withdrawalRequest(String requestId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'withdrawalRequest'");
+    }
+
+    @Override
+    public String setMessage(String requestId, String message) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setMessage'");
+    }
+
+    @Override
+    public TableRAH getRAHByCustomer(String custId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getRAHByCustomer'");
     }
 
 }
