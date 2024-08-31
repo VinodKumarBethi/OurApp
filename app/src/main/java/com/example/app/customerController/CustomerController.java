@@ -52,7 +52,6 @@ public class CustomerController {
     @PostMapping("/Signup")
     public boolean signUp(@RequestBody Customer c) {
         return customerService.createCustomer(c);
-
     }
 
     @GetMapping("/deleteCustomerByID/{id}")
