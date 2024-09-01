@@ -7,7 +7,9 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.app.feign.IdentityFeignClient;
 import com.example.app.model.Customer;
+import com.example.app.model.UserCredential;
 import com.example.app.repository.CustRepository;
 
 import jakarta.transaction.Transactional;
@@ -17,6 +19,9 @@ public class CustomerService implements CustomerServiceInterface {
     private static boolean isNullOrEmpty(String str) {
         return str == null || str.trim().isEmpty();
     }
+
+    @Autowired
+    private IdentityFeignClient identityFeignClient;
 
     @Autowired
     private CustRepository customerRepository;
@@ -59,6 +64,13 @@ public class CustomerService implements CustomerServiceInterface {
         c.setId(Id);
         Customer cust = customerRepository.save(c);
         if (cust.getId() != null) {
+            UserCredential  userCredential = new UserCredential(
+                cust.getName(),
+                cust.getUsername(),
+                cust.getPassword(),
+                "CUSTOMER"
+            );
+            identityFeignClient.addNewUser(userCredential);
             return true;
         }
         return false;

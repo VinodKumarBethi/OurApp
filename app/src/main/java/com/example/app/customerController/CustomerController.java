@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @CrossOrigin(origins = "*")
-// @RequestMapping(path = "/cust")
+@RequestMapping(path = "/customer")
 @RestController
 public class CustomerController {
 
