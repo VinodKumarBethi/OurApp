@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ExceptionController {
 
     @ExceptionHandler(NotFoundException.class)
-	public ResponseEntity<ErrorClass> NotFoundExceptionHandler(NotFoundException ex){
+	public ResponseEntity<Error> NotFoundExceptionHandler(NotFoundException ex){
 		String exception=ex.getMessage();
 		
-		ErrorClass errorClass=new ErrorClass(exception,HttpStatus.NOT_FOUND);
-		return new ResponseEntity<ErrorClass>(errorClass,HttpStatus.NOT_FOUND);
+		Error errorClass=new Error(new ErrorClass(exception,HttpStatus.NOT_FOUND));
+		return new ResponseEntity<Error>(errorClass,HttpStatus.NOT_FOUND);
 		
 	}
 
