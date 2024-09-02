@@ -30,32 +30,4 @@ public class TableRAH {
     private boolean isPaid;
     private boolean isAccepted;
 
-//     public void setServiceOngoing(String string) {
-//         switch (string.toUpperCase()) {
-//             case "PENDING":
-//                 this.serviceOngoing = ServiceStatus.PENDING;
-//                 break;
-//             case "ONGOING":
-//                 this.serviceOngoing = ServiceStatus.ONGOING;
-//                 break;
-//             case "COMPLETED":
-//                 this.serviceOngoing = ServiceStatus.COMPLETED;
-//                 break;
-//             default:
-//                 throw new IllegalArgumentException("Invalid ServiceStatus: " + string);
-//         }
-//     }
-//     public String getServiceOngoing() {
-//     switch (this.serviceOngoing) {
-//         case PENDING:
-//             return "PENDING";
-//         case ONGOING:
-//             return "ONGOING";
-//         case COMPLETED:
-//             return "COMPLETED";
-//         default:
-//             throw new IllegalArgumentException("Invalid ServiceStatus");
-//     }
-// }
-
 }

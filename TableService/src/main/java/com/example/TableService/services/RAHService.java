@@ -3,6 +3,7 @@ package com.example.TableService.services;
 import java.util.List;
 import java.util.UUID;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,10 @@ import com.example.TableService.model.Customer;
 import com.example.TableService.model.ServiceStatus;
 import com.example.TableService.model.TableRAH;
 import com.example.TableService.repo.RAHRepo;
+import com.example.TableService.model.TableRAH;
+import com.example.TableService.repo.RAHRepo;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class RAHService implements RAHServiceInterface {
@@ -22,7 +27,7 @@ public class RAHService implements RAHServiceInterface {
     FeigncustomerClient feigncustomerClient;
 
     @Autowired
-    RAHRepo rahRepo;
+    private RAHRepo rahRepo;
 
     @Override
     public List<TableRAH> getRAHQueueByRetailer(String retId) {
@@ -60,31 +65,46 @@ public class RAHService implements RAHServiceInterface {
         request.setServiceOngoing(ServiceStatus.PENDING);
 
         return rahRepo.save(request);
-
     }
 
-    @Override
-    public List<TableRAH> getRequestByRetIdAndApprovalStatus() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRequestByRetIdAndApprovalStatus'");
+
+ 
+
+    public List<TableRAH> getRequestByRetIdAndApprovalStatus(String id){
+
+    
+        return rahRepo.findByRetIdAndIsAccepted(id, true);
+
+    }
+    @Transactional
+    public boolean updateOngoingStatus(String requestId,ServiceStatus newStatus){
+        int t=rahRepo.updateOngoingStatus(requestId, newStatus);
+        if(t>0)
+        {
+            return true;
+        }
+        return false;
     }
 
-    @Override
-    public TableRAH updateOngoingStatus(String requestId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateOngoingStatus'");
-    }
+    @Transactional
+    public boolean withdrawalRequest(String requestId){
+         int b=rahRepo.deleteByRequestId(requestId);
 
-    @Override
-    public String withdrawalRequest(String requestId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'withdrawalRequest'");
+         if(b>0){
+            return true;
+         }
+        return false;
+        
     }
+    @Transactional
+    public boolean setRetMessage(String requestId,String message){
+        TableRAH a=rahRepo.findByRequestId(requestId);
 
-    @Override
-    public String setMessage(String requestId, String message) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setMessage'");
+        if(a.getRequestId() !=null){
+            a.setRetailerMessage(message);
+            return true;
+        }
+                return false;
     }
 
     @Override
@@ -106,5 +126,6 @@ public class RAHService implements RAHServiceInterface {
         }
         return null;
     }
+    
 
 }
