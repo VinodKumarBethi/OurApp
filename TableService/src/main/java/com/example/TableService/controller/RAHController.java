@@ -42,8 +42,6 @@ public class RAHController {
 
     @GetMapping("/getCurrentCustomerRequest/{custId}")
     public ResponseEntity<TableRAH> getCurrentCustomerRequest(@PathVariable String custId) {
-        System.out.println("efcsac Controller here: " +custId);
-
         return ResponseEntity.ok(rahService.getCurrentRequestByCustomer(custId));
     }
     

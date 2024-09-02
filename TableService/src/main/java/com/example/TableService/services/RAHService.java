@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.TableService.feignClient.FeigncustomerClient;
 import com.example.TableService.model.Customer;
+import com.example.TableService.model.ServiceStatus;
 import com.example.TableService.model.TableRAH;
 import com.example.TableService.repo.RAHRepo;
 
@@ -25,7 +26,8 @@ public class RAHService implements RAHServiceInterface {
 
     @Override
     public List<TableRAH> getRAHQueueByRetailer(String retId) {
-        List<TableRAH> rahList = rahRepo.findAllByRetId(retId);
+        List<TableRAH> rahList = rahRepo.findAllByRetIdAndServiceOngoing(retId);
+        // returns requests under retaier ID and SrviceOnGoing !=Completed
         return rahList;
     }
 
@@ -37,7 +39,7 @@ public class RAHService implements RAHServiceInterface {
 
         boolean allCompleted = true;
         for (TableRAH tableRAH : prevRequest) {
-            if (!tableRAH.getServiceOngoing().equals("COMPLETED")) {
+            if (!tableRAH.getServiceOngoing().equals(ServiceStatus.COMPLETED)) {
                 allCompleted = false;
                 break;
             }
@@ -55,7 +57,7 @@ public class RAHService implements RAHServiceInterface {
         TableRAH request = rahRepo.findById(requestId)
                 .orElseThrow(() -> new RuntimeException("Request does not exist"));
         request.setAccepted(isAccepted);
-        request.setServiceOngoing("pending");
+        request.setServiceOngoing(ServiceStatus.PENDING);
 
         return rahRepo.save(request);
 
