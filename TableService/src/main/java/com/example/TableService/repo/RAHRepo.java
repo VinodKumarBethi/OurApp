@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-
+import com.example.TableService.model.ServiceStatus;
 import com.example.TableService.model.TableRAH;
 
 
@@ -18,8 +18,13 @@ import com.example.TableService.model.TableRAH;
 public interface RAHRepo extends JpaRepository<TableRAH,String> {
 
     @Modifying
+    @Query("select tr from TableRAH tr where tr.retId=:retId and tr.serviceOngoing=0")
+    public List<TableRAH> findAllByRetIdAndServiceOngoing(@Param("retId") String retId);
+    public List<TableRAH> findAllByCustId(String custId);
+
+    @Modifying
     @Query("update TableRAH rah set rah.serviceOngoing=:service where rah.requestId=:reqId ")
-     public int updateOngoingStatus(@Param("reqId") String requestId,@Param("service") String newStatus);
+     public int updateOngoingStatus(@Param("reqId") String requestId,@Param("service") ServiceStatus newStatus);
 
      public int deleteByRequestId(String id);
 

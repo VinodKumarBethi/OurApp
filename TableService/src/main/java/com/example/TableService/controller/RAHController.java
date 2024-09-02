@@ -1,6 +1,9 @@
 package com.example.TableService.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,10 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.TableService.model.ServiceStatus;
 import com.example.TableService.model.TableRAH;
-import com.example.TableService.repo.RAHRepo;
 import com.example.TableService.services.RAHService;
-import java.util.List;
 
 @RestController
 public class RAHController {
@@ -20,16 +22,40 @@ public class RAHController {
    @Autowired
    RAHService rahService;
 
+    @GetMapping("/getRequestsByRetailerId/{id}")
+    public ResponseEntity<List<TableRAH>> getRequestsByRetailerId(@PathVariable String id){
+        return ResponseEntity.ok( rahService.getRAHQueueByRetailer(id));
+    }
+    @PostMapping("/createRequest")
+    public ResponseEntity<TableRAH> createRequest(@RequestBody TableRAH tableRAH) {        
+        return ResponseEntity.ok(rahService.createRAH(tableRAH));
+    }
+    @GetMapping("/getAllRequestsByCustId/{custId}")
+    public ResponseEntity<List<TableRAH>> getRequestByCustId(@PathVariable String custId) {
+        return ResponseEntity.ok(rahService.getRAHByCustomer(custId));
+        
+    }
+
+    @PostMapping("/updateRequestApproval")
+    public ResponseEntity<TableRAH> updateRequestApproval(@RequestBody TableRAH updates) {
+        return ResponseEntity.ok(rahService.updateApproveOrReject(updates.getRequestId(), updates.getRetId(), updates.isAccepted()));
+    }
+
+    @GetMapping("/getCurrentCustomerRequest/{custId}")
+    public ResponseEntity<TableRAH> getCurrentCustomerRequest(@PathVariable String custId) {
+        return ResponseEntity.ok(rahService.getCurrentRequestByCustomer(custId));
+    }
+    
+     
 //    @Autowired
 //    RAHRepo rahRepo;
-
     @GetMapping("/getcustByid/{id}")
-    public TableRAH getCust(@PathVariable String id){
+    public List<TableRAH> getCust(@PathVariable String id){
         return rahService.getRAHByCustomer(id);
     }
 
     @PutMapping("/updateServiceStatus/{reqId}/{status}")
-    public boolean  updateServiceStatus(@PathVariable String reqId,@PathVariable String status){
+    public boolean  updateServiceStatus(@PathVariable String reqId,@PathVariable ServiceStatus status){
         return rahService.updateOngoingStatus(reqId, status);
     }
 

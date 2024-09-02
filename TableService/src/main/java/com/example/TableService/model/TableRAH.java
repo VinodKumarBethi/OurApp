@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 
 
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,9 +26,8 @@ public class TableRAH {
     private String retailerMessage;
     private String timeForCustArrival;
     private List<String> custExpectedServices;
-    private String serviceOngoing;
+    private ServiceStatus serviceOngoing;
     private boolean isPaid;
     private boolean isAccepted;
 
 }
-
