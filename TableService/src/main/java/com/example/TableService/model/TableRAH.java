@@ -10,11 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-enum ServiceStatus {
-    PENDING,
-    ONGOING,
-    COMPLETED
-}
+
 
 @Data
 @NoArgsConstructor
@@ -31,7 +27,7 @@ public class TableRAH {
     private String retailerMessage;
     private String timeForCustArrival;
     private List<String> custExpectedServices;
-    private ServiceStatus serviceOngoing;
+    private String serviceOngoing;
     private boolean isPaid;
     private boolean isAccepted;
 

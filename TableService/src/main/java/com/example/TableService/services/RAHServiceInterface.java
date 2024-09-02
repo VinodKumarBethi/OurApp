@@ -11,10 +11,10 @@ public interface RAHServiceInterface {
     public TableRAH createRAH(TableRAH rah);
     public TableRAH updateApproveOrReject(String requestId,String retId,String status);//it updates the  status of the request with approved and serviceOngoing should be updated to pending.
    
-    public List<TableRAH> getRequestByRetIdAndApprovalStatus();//approved list
-    public TableRAH updateOngoingStatus(String requestId);//it updates the  ongoingstatus of the request with ongoing
-    public String withdrawalRequest(String requestId);
-    public String setMessage(String requestId,String message);
+    public List<TableRAH> getRequestByRetIdAndApprovalStatus(String Retid);//approved list
+    public boolean updateOngoingStatus(String requestId,String newStatus);//it updates the  ongoingstatus of the request with ongoing
+    public boolean withdrawalRequest(String requestId);
+    public boolean setRetMessage(String requestId,String message);
 
 
 }
