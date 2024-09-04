@@ -1,4 +1,4 @@
-package com.location.location.controller;
+package com.example.retailer.controller;
 
 import java.util.List;
 
@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.location.location.model.Retailer;
-import com.location.location.services.LocationService;
+import com.example.retailer.model.Retailer;
+import com.example.retailer.service.LocationService;
+
 
 @RestController
 @RequestMapping("/location")

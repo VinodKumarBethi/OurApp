@@ -1,4 +1,4 @@
-package com.location.location.model;
+package com.example.retailer.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

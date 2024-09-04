@@ -1,4 +1,4 @@
-package com.retailerservices.retailerservices.repo;
+package com.example.retailer.repo;
 
 
 import java.util.List;
@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.retailerservices.retailerservices.model.Services;
+import com.example.retailer.model.Services;
+
+
 
 @Repository
 public interface ServicesRepo extends JpaRepository<Services,String>{

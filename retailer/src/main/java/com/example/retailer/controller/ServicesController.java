@@ -1,4 +1,4 @@
-package com.retailerservices.retailerservices.controller;
+package com.example.retailer.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.retailerservices.retailerservices.model.Services;
-import com.retailerservices.retailerservices.services.RetServices;
+import com.example.retailer.model.Services;
+import com.example.retailer.service.RetServices;
+
+
 
 @RestController
 @RequestMapping("/retailerservices")

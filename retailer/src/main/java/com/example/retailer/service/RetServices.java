@@ -1,4 +1,4 @@
-package com.retailerservices.retailerservices.services;
+package com.example.retailer.service;
 
 
 
@@ -7,8 +7,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.retailerservices.retailerservices.model.Services;
-import com.retailerservices.retailerservices.repo.ServicesRepo;
+import com.example.retailer.model.Services;
+import com.example.retailer.repo.ServicesRepo;
+
 
 @Service
 public class RetServices {
