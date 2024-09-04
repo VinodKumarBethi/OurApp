@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.retailer.customexception.NotFoundException;
 import com.example.retailer.dto.RetailerDto;
 import com.example.retailer.feign.IdentityFeignClient;
-import com.example.retailer.feign.ServicesFeignClient;
+// import com.example.retailer.feign.ServicesFeignClient;
 import com.example.retailer.model.Retailer;
 import com.example.retailer.model.Services;
 import com.example.retailer.model.UserCredential;
@@ -33,11 +33,14 @@ public class RetailerService {
     @Autowired
     private RetailerRepo retailerRepo;
 
-    @Autowired
-    private ServicesFeignClient servicesFeignClient;
+    // @Autowired
+    // private ServicesFeignClient servicesFeignClient;
 
     @Autowired
     private IdentityFeignClient identityFeignClient;
+
+    @Autowired
+    private RetServices retServices;
     
 
     public List<RetailerDto> getAllRetailers(){
@@ -52,7 +55,8 @@ public class RetailerService {
         if(r==null) {
         throw new NotFoundException("Retailer with id"+id+"Not Found ");
         }
-        List<Services> s=servicesFeignClient.getServicesByRetailerId(r.getRetailerId());
+       // List<Services> s=servicesFeignClient.getServicesByRetailerId(r.getRetailerId());
+        List<Services> s=retServices.getServicesByRetId(r.getRetailerId());
         r.setServiceList(s);
         return this.retailerToRetailerDTO(r);
     }
