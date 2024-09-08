@@ -45,7 +45,9 @@ public class RetailerService {
 
     public List<RetailerDto> getAllRetailers(){
 
-       return retailerRepo.findAll().stream().map(m->this.retailerToRetailerDTO(m)).toList();
+       return retailerRepo.findAll().stream().
+       map(m->{m.setServiceList(retServices.getServicesByRetId(m.getRetailerId()));
+        return this.retailerToRetailerDTO(m);}).toList();
     }
 
     public RetailerDto getRetailerByID(String id){
