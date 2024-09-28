@@ -5,8 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "cust_Entity")
 @Table(name = "cust_Table")
 public class Customer {
@@ -21,7 +28,9 @@ public class Customer {
     private String age;
     @Column(nullable = false)
     private String gender;
-    private String profile_img;
+    @Lob
+    @Column(columnDefinition = "MEDIUMBLOB") // Specify MEDIUMBLOB
+    private byte[] profile_img;
     @Column(nullable = false, unique = true)
     private String username;
     @Column(nullable = false)
@@ -75,11 +84,11 @@ public class Customer {
         this.gender = gender;
     }
 
-    public String getProfile_img() {
+    public byte[] getProfile_img() {
         return profile_img;
     }
 
-    public void setProfile_img(String profile_img) {
+    public void setProfile_img(byte[] profile_img) {
         this.profile_img = profile_img;
     }
 

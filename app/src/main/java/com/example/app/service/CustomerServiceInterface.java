@@ -2,12 +2,15 @@ package com.example.app.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.app.model.Customer;
 
 public interface CustomerServiceInterface {
 
     // Create Customer
     public boolean createCustomer(Customer c);
+    public boolean uploadCustDP(MultipartFile file, String username);
     // Delete Customer
     public boolean deleteCustomerByID(String id);
     public boolean deleteCustomerByUsername(String username);
