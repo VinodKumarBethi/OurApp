@@ -1,6 +1,7 @@
 package com.example.app.customerController;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.app.dto.CustomerDTO;
 import com.example.app.model.Customer;
@@ -53,6 +54,11 @@ public class CustomerController {
     public boolean signUp(@RequestBody Customer c) {
         return customerService.createCustomer(c);
     }
+    @PostMapping("/uploadCustDP")
+    public boolean uploadCustDP( @RequestParam("file") MultipartFile file , @RequestParam("username") String username) {
+        return customerService.uploadCustDP(file, username);
+    }
+
 
     @GetMapping("/deleteCustomerByID/{id}")
     public boolean deleteCustomerByID(@PathVariable String id) {

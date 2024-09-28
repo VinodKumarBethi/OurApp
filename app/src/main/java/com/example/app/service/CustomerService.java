@@ -1,11 +1,18 @@
 package com.example.app.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+import javax.management.RuntimeErrorException;
+
+import org.bouncycastle.crypto.RuntimeCryptoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.app.feign.IdentityFeignClient;
 import com.example.app.model.Customer;
@@ -74,6 +81,25 @@ public class CustomerService implements CustomerServiceInterface {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean uploadCustDP(MultipartFile file, String username){
+        Customer existingCustomer = customerRepository.findCustomerByUsername(username);
+        if (existingCustomer != null && existingCustomer.getId() != null) {
+            try {
+                existingCustomer.setProfile_img(file.getBytes());
+                customerRepository.save(existingCustomer);
+                return true;
+            } catch (IOException e) {
+                System.err.println("Error in img save: " + e.getMessage());
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+
+        }
+        else throw new RuntimeException("Customer with username: "+username+ " does not exist.");
+
     }
 
     @Override
@@ -158,7 +184,8 @@ public class CustomerService implements CustomerServiceInterface {
             throw new RuntimeException("Either id or username must be provided");
         }
         String[] Mandatory_Cust_Feilds = { updateCustomer.getName(), updateCustomer.getGender(),
-                updateCustomer.getPassword(), updateCustomer.getEmail(), updateCustomer.getProfile_img(),
+                updateCustomer.getPassword(), updateCustomer.getEmail(),
+                // updateCustomer.getProfile_img(),
                 updateCustomer.getMobile(), updateCustomer.getAge() };
         int count = 0;
         for (String feild : Mandatory_Cust_Feilds) {
