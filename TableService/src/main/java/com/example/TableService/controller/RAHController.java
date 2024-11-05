@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.TableService.model.ServiceStatus;
@@ -17,6 +18,7 @@ import com.example.TableService.model.TableRAH;
 import com.example.TableService.services.RAHService;
 
 @RestController
+@RequestMapping("/rah")
 public class RAHController {
 
    @Autowired

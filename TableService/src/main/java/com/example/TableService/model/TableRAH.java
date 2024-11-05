@@ -5,6 +5,7 @@ import java.util.List;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,9 +26,14 @@ public class TableRAH {
     private String requestTimeStamp;
     private String retailerMessage;
     private String timeForCustArrival;
-    private List<String> custExpectedServices;
+  
+    @Transient
+    private List<CustomerServices> custExpectedServices;
+    
     private ServiceStatus serviceOngoing;
     private boolean isPaid;
     private boolean isAccepted;
+
+   
 
 }
