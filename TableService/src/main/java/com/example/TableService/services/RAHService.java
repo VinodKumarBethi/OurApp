@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.TableService.feignClient.FeigncustomerClient;
-import com.example.TableService.model.Customer;
+
+import com.example.TableService.model.CustomerServices;
 import com.example.TableService.model.ServiceStatus;
 import com.example.TableService.model.TableRAH;
+import com.example.TableService.repo.CustomerServicesRepo;
 import com.example.TableService.repo.RAHRepo;
 import com.example.TableService.model.TableRAH;
 import com.example.TableService.repo.RAHRepo;
@@ -23,11 +25,20 @@ public class RAHService implements RAHServiceInterface {
         return str == null || str.trim().isEmpty();
     }
 
+    // @Autowired
+    // private CustomerServices customerSer;
+
     @Autowired
     FeigncustomerClient feigncustomerClient;
 
     @Autowired
     private RAHRepo rahRepo;
+
+    @Autowired
+    private CustomerServicesRepo cRepo;
+
+    
+   
 
     @Override
     public List<TableRAH> getRAHQueueByRetailer(String retId) {
@@ -51,6 +62,20 @@ public class RAHService implements RAHServiceInterface {
         }
         if (prevRequest == null || prevRequest.size() == 0 || allCompleted) {
             rah.setRequestId(Id);
+            List<CustomerServices> customerServices=rah.getCustExpectedServices();
+            for(int i=0;i<customerServices.size();i++){
+                CustomerServices customerSer=new CustomerServices();
+                customerSer.setCustomerId(rah.getCustId());
+                customerSer.setDuration(customerServices.get(i).getDuration());
+                customerSer.setServiceType(customerServices.get(i).getServiceType());
+                customerSer.setImages(customerServices.get(i).getImages());
+                customerSer.setRetailerId(customerServices.get(i).getRetailerId());
+                customerSer.setServiceCost(customerServices.get(i).getServiceCost());
+                customerSer.setServiceName(customerServices.get(i).getServiceName());
+                customerSer.setServiceId(customerServices.get(i).getServiceId());
+
+                cRepo.save(customerSer);
+            }
             return rahRepo.save(rah);
         }
 
@@ -109,7 +134,11 @@ public class RAHService implements RAHServiceInterface {
 
     @Override
     public List<TableRAH> getRAHByCustomer(String custId) {
-        return rahRepo.findAllByCustId(custId);
+         List<TableRAH> rah=rahRepo.findAllByCustId(custId);
+        List<CustomerServices> cs=cRepo.getAllCustomerServicesByCustomerId(custId);
+        rah.get(0).setCustExpectedServices(cs);
+
+        return rah;
 
     }
 
