@@ -34,6 +34,11 @@ public class CustomerController {
     @Autowired
     private CustomerDTO customerDTO;
 
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello, World!";
+    }
+
     @GetMapping("/getAllCustomers")
     public ResponseEntity<List<CustomerDTO>> getAllCustomers() {
         return ResponseEntity.ok( customerService.getAllCustomers().stream().map(m -> customerDTO.customerToCustomerDTO(m)).toList());
